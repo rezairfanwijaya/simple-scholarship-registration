@@ -32,7 +32,7 @@ const HeroSection = () => {
                 </div>
 
                 <div className="button flex mt-2">
-                    <a href="#isi-kuesioner" className='bg-primary hover:bg-primary-hover w-screen px-3 py-3 text-[0.7rem] text-white tracking-wider rounded-md text-center'>
+                    <a href="#list-beasiswa" className='bg-primary hover:bg-primary-hover w-screen px-3 py-3 text-[0.7rem] text-white tracking-wider rounded-md text-center'>
                         Lihat Beasiswa
                     </a>
                 </div>
@@ -41,7 +41,7 @@ const HeroSection = () => {
         </div>
 
         {/* hero section for non small device  */}
-        <div className="herosection-non-small-device hidden md:mt-5 md:flex md:items-stretch md:justify-between lg:px-2 lg:mt-8">
+        <div className="herosection-non-small-device hidden md:mt-5 md:flex md:items-stretch md:justify-between lg:px-20 lg:mt-8">
             <div
                 className="left flex flex-col gap-5 lg:gap-8 w-1/2 py-8 "
                 data-aos="fade-right"
@@ -58,7 +58,7 @@ const HeroSection = () => {
                 </div>
 
                 <div className="button mt-2">
-                    <a href="#isi-kuesioner" className='bg-primary hover:bg-primary-hover w-screen px-7 py-3 md:text-[0.7rem] text-white tracking-wider rounded-md text-center lg:px-9 lg:py-4 lg:text-sm'>
+                    <a href="#list-beasiswa" className='bg-primary hover:bg-primary-hover w-screen px-7 py-3 md:text-[0.7rem] text-white tracking-wider rounded-md text-center lg:px-9 lg:py-4 lg:text-sm'>
                         Lihat Beasiswa
                     </a>
                 </div>

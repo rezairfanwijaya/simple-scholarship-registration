@@ -27,7 +27,7 @@ const NavbarUser = () => {
             </div>
             <Navbar.Collapse>
                 <Navbar.Link
-                    href="#persebaran-alumni"
+                    href="#list-beasiswa"
                 >
                     <span className="hover:text-primary tracking-wide">Lihat Beasiswa</span>
                 </Navbar.Link>
