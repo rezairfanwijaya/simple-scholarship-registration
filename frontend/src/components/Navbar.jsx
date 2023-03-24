@@ -31,7 +31,7 @@ const NavbarUser = () => {
                 >
                     <span className="hover:text-primary tracking-wide">Lihat Beasiswa</span>
                 </Navbar.Link>
-                <Navbar.Link href="#grafik-alumni" className="hover:text-primary">
+                <Navbar.Link href="/daftar" className="hover:text-primary">
                     <span className="hover:text-primary tracking-wide">Daftar</span>
                 </Navbar.Link>
                 <Navbar.Link href="#isi-kuesioner">

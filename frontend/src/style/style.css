@@ -1321,6 +1321,10 @@ input:checked + .toggle-bg{
   margin-top: 2.25rem;
 }
 
+.mb-2{
+  margin-bottom: 0.5rem;
+}
+
 .block{
   display: block;
 }
@@ -2561,6 +2565,14 @@ input:checked + .toggle-bg{
 
 .p-6{
   padding: 1.5rem;
+}
+
+.p-28{
+  padding: 7rem;
+}
+
+.p-10{
+  padding: 2.5rem;
 }
 
 .px-0{

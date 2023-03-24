@@ -3,6 +3,7 @@ import './style/style.css'
 
 import { Routes, Route } from 'react-router-dom';
 import LandingPage from './pages/LandingPage';
+import Daftar from './pages/Daftar';
 
 function App() {
   return (<>
@@ -12,6 +13,12 @@ function App() {
           path={"/"}
           exact
           element={<LandingPage/>}
+        />
+
+        <Route
+          path={"/daftar"}
+          exact
+          element={<Daftar/>}
         />
 
       </Routes>
