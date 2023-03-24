@@ -2615,6 +2615,10 @@ input:checked + .toggle-bg{
   text-align: center;
 }
 
+.font-inter{
+  font-family: Inter, sans-serif;
+}
+
 .text-2xl{
   font-size: 1.5rem;
   line-height: 2rem;
@@ -2906,6 +2910,11 @@ input:checked + .toggle-bg{
 .text-yellow-900{
   --tw-text-opacity: 1;
   color: rgb(99 49 18 / var(--tw-text-opacity));
+}
+
+.text-primary{
+  --tw-text-opacity: 1;
+  color: rgb(0 115 255 / var(--tw-text-opacity));
 }
 
 .underline{
