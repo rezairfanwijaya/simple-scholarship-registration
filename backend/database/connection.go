@@ -6,6 +6,7 @@ import (
 	"serkom/admin"
 	"serkom/helper"
 	"serkom/mahasiswa"
+	"serkom/approval"
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -41,7 +42,7 @@ func NewConnection(path string) (*gorm.DB, error) {
 	}
 
 	// migration schema
-	if err := db.AutoMigrate(&mahasiswa.Mahasiswa{}, &admin.Admin{}); err != nil {
+	if err := db.AutoMigrate(&mahasiswa.Mahasiswa{}, &admin.Admin{}, &approval.Approval{}); err != nil {
 		return db, fmt.Errorf("failed migrate schema : %v", err.Error())
 	}
 
