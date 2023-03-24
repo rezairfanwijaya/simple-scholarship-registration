@@ -2,12 +2,17 @@
 import './style/style.css'
 
 import { Routes, Route } from 'react-router-dom';
+import LandingPage from './pages/LandingPage';
 
 function App() {
   return (<>
     <div className="App font-inter">
       <Routes>
-
+        <Route
+          path={"/"}
+          exact
+          element={<LandingPage/>}
+        />
 
       </Routes>
     </div>
