@@ -4,16 +4,15 @@ import './style/style.css'
 import { Routes, Route } from 'react-router-dom';
 
 function App() {
-  return (
-    <>
+  return (<>
+    <div className="App font-inter">
+      <Routes>
 
-      <div className="App font-inter">
-        <Routes>
-        </Routes>
-      </div>
 
-    </>
-  );
+      </Routes>
+    </div>
+
+  </>);
 }
 
 export default App;
