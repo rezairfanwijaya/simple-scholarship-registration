@@ -5,6 +5,7 @@ import "net/http"
 type IService interface {
 	CreateApproval(input InputNewApproval) (Approval, int, error)
 	GetAllApprovals() ([]Approval, int, error)
+	GetTotalStatus() (totalPending int64, totalApprove int64)
 }
 
 type service struct {
@@ -38,4 +39,9 @@ func (s *service) GetAllApprovals() ([]Approval, int, error) {
 	}
 
 	return approvals, http.StatusOK, nil
+}
+
+func (s *service) GetTotalStatus() (totalPending int64, totalApprove int64) {
+	totalPending, totalApprove = s.repoApproval.CountStatus(0, 1)
+	return totalPending, totalApprove
 }

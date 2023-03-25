@@ -5,6 +5,7 @@ import "gorm.io/gorm"
 type IRespoistory interface {
 	Save(approval Approval) (Approval, error)
 	FindAll() ([]Approval, error)
+	CountStatus(pending, approve int) (totalPending int64, totalApprove int64)
 }
 
 type repository struct {
@@ -30,4 +31,11 @@ func (r *repository) FindAll() ([]Approval, error) {
 	}
 
 	return approvals, nil
+}
+
+func (r *repository) CountStatus(pending, approve int) (totalPending int64, totalApprove int64) {
+	r.db.Model(&Approval{}).Where("status = ? ", pending).Count(&totalPending)
+	r.db.Model(&Approval{}).Where("status = ? ", approve).Count(&totalApprove)
+
+	return totalPending, totalApprove
 }
