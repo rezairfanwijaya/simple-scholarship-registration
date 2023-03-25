@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"serkom/approval"
 	"serkom/database"
 	"serkom/handler"
 	"serkom/helper"
@@ -22,14 +23,20 @@ func main() {
 	// allow cors
 	router.Use(CorsMiddleware())
 
+	// approval
+	repoApproval := approval.NewRepository(conn)
+	serviceApproval := approval.NewService(repoApproval)
+
 	// mahasiswa
 	repoMahasiswa := mahasiswa.NewRepository(conn)
-	serviceMahasiswa := mahasiswa.NewService(repoMahasiswa)
+	serviceMahasiswa := mahasiswa.NewService(repoMahasiswa, serviceApproval)
 	hanlderMahasiswa := handler.NewHandlerMahasiswa(serviceMahasiswa)
 
 	// endpoint
 	router.GET("/mahasiswa/:email", hanlderMahasiswa.GetByEmail)
 	router.POST("/mahasiswa/daftar", hanlderMahasiswa.DaftarBeasiswa)
+	router.GET("/mahasiswa/approval", hanlderMahasiswa.GetAllApprovals)
+	router.Static("/image", "./images")
 
 	env, err := helper.GetENV(".env")
 	if err != nil {
