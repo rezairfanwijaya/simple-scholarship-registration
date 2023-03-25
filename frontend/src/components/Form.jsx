@@ -1,5 +1,8 @@
 import { Label, TextInput, Button, Select, FileInput } from "flowbite-react";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
 const FormDaftar = () => {
     // state
@@ -8,10 +11,13 @@ const FormDaftar = () => {
     const [telepon, setTelepon] = useState('')
     const [semester, setSemester] = useState(1)
     const [beasiswa, setBeasiswa] = useState("Beasiswa Akademik")
-    const [ipk, setIpk] = useState(0)
+    const [ipk, setIpk] = useState(3)
     const [berkas, setBerkas] = useState(null)
     const [emailNotFound, setEmailNotFound] = useState(false)
     const [isEligible, setIsEligible] = useState(true)
+
+    const MySwal = withReactContent(Swal)
+    const navigate = useNavigate();
 
     // hanlder berkas
     const handleChangeBerkas = (e) => {
@@ -25,7 +31,6 @@ const FormDaftar = () => {
             method: 'GET'
         }).then(res => { return res.json() })
             .then(data => {
-                console.log(data)
                 if (data.meta.code === 404) {
                     setEmailNotFound(true)
                 } else {
@@ -40,7 +45,6 @@ const FormDaftar = () => {
 
     // filtering ipk
     useEffect(() => {
-        console.log("ipk : ", ipk)
         if (ipk < 3) {
             setIsEligible(false)
         } else {
@@ -48,7 +52,6 @@ const FormDaftar = () => {
         }
     }, [ipk])
 
-    console.table([nama, email, telepon, semester, ipk, berkas, beasiswa])
 
     // submit
     const handleDaftarBeasiswa = (e) => {
@@ -71,13 +74,25 @@ const FormDaftar = () => {
         .then((res)=>{return res.json()})
         .then((data) => {
             if (data.meta.code === 200) {
-                alert(data.meta.status)
+                let timerInterval
+                MySwal.fire({
+                    title: 'Sukses daftar beasiswa',
+                    icon: 'success',
+                    timer: 2000,
+                    timerProgressBar: false,
+                    didOpen: () => {
+                        Swal.showLoading()
+                    },
+                    willClose: () => {
+                        clearInterval(timerInterval)
+                    }
+                }).then((result) => {
+                    navigate('/hasil')
+                })
             }else{
                 alert('Error')
             }
         })    
-
-        console.log("form data : ", formData)
     }
 
     return (<>

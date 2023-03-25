@@ -34,7 +34,7 @@ const NavbarUser = () => {
                 <Navbar.Link href="/daftar" className="hover:text-primary">
                     <span className="hover:text-primary tracking-wide">Daftar</span>
                 </Navbar.Link>
-                <Navbar.Link href="#isi-kuesioner">
+                <Navbar.Link href="/hasil">
                     <span className="hover:text-primary tracking-wide">Hasil</span>
                 </Navbar.Link>
             </Navbar.Collapse>

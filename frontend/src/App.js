@@ -4,6 +4,7 @@ import './style/style.css'
 import { Routes, Route } from 'react-router-dom';
 import LandingPage from './pages/LandingPage';
 import Daftar from './pages/Daftar';
+import Hasil from './pages/Hasil';
 
 function App() {
   return (<>
@@ -19,6 +20,12 @@ function App() {
           path={"/daftar"}
           exact
           element={<Daftar/>}
+        />
+
+        <Route
+          path={"/hasil"}
+          exact
+          element={<Hasil/>}
         />
 
       </Routes>
