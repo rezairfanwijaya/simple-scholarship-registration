@@ -9,6 +9,7 @@ import Login from './pages/Login';
 import PrivateRoute from './utils/auth';
 import Dashboard from './pages/Dashboard';
 import Index from './components/dashboard/Index';
+import Pengajuan from './components/dashboard/Pengajuan';
 
 function App() {
   return (<>
@@ -48,7 +49,7 @@ function App() {
         >
 
           <Route path={""} element={<Index />} />
-          {/* <Route path={"alumni"} element={<Alumni />} /> */}
+          <Route path={"pengajuan"} element={<Pengajuan />} />
         </Route>
 
       </Routes>
