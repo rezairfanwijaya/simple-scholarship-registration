@@ -1,12 +1,89 @@
 import { Label, TextInput, Button, Select, FileInput } from "flowbite-react";
+import { useState, useEffect } from "react";
 
 const FormDaftar = () => {
+    // state
+    const [nama, setNama] = useState('')
+    const [email, setEmail] = useState('')
+    const [telepon, setTelepon] = useState('')
+    const [semester, setSemester] = useState(1)
+    const [beasiswa, setBeasiswa] = useState("Beasiswa Akademik")
+    const [ipk, setIpk] = useState(0)
+    const [berkas, setBerkas] = useState(null)
+    const [emailNotFound, setEmailNotFound] = useState(false)
+    const [isEligible, setIsEligible] = useState(true)
 
+    // hanlder berkas
+    const handleChangeBerkas = (e) => {
+        let file = e.target.files[0]
+        setBerkas(file)
+    }
+
+    // get mahasiwa by email
+    useEffect(() => {
+        fetch(`http://localhost:8989/mahasiswa/${email}`, {
+            method: 'GET'
+        }).then(res => { return res.json() })
+            .then(data => {
+                console.log(data)
+                if (data.meta.code === 404) {
+                    setEmailNotFound(true)
+                } else {
+                    setSemester(data.data.semester)
+                    setIpk(data.data.ipk)
+                    setEmailNotFound(false)
+
+                }
+            })
+    }, [email])
+
+
+    // filtering ipk
+    useEffect(() => {
+        console.log("ipk : ", ipk)
+        if (ipk < 3) {
+            setIsEligible(false)
+        } else {
+            setIsEligible(true)
+        }
+    }, [ipk])
+
+    console.table([nama, email, telepon, semester, ipk, berkas, beasiswa])
+
+    // submit
+    const handleDaftarBeasiswa = (e) => {
+        e.preventDefault()
+
+        // initial form data to send data
+        let formData = new FormData()
+        formData.append("nama", nama)
+        formData.append("email", email)
+        formData.append("telepon", telepon)
+        formData.append("semester", semester)
+        formData.append("ipk", ipk)
+        formData.append("berkas", berkas)
+        formData.append("beasiswa", beasiswa)
+
+        fetch("http://localhost:8989/mahasiswa/daftar", {
+            method : "POST",
+            body : formData,
+        })
+        .then((res)=>{return res.json()})
+        .then((data) => {
+            if (data.meta.code === 200) {
+                alert(data.meta.status)
+            }else{
+                alert('Error')
+            }
+        })    
+
+        console.log("form data : ", formData)
+    }
 
     return (<>
 
         <div className="body flex flex-col gap-4 bg-white p-5 rounded-md">
-            <form className="flex flex-col gap-4 bg-white rounded-md">
+            <form className="flex flex-col gap-4 bg-white rounded-md" onSubmit={handleDaftarBeasiswa}>
                 <div>
                     <div className="mb-2 block">
                         <Label
@@ -19,6 +96,7 @@ const FormDaftar = () => {
                         type="text"
                         placeholder="Anggara"
                         required={true}
+                        onChange={e => setNama(e.target.value)}
                     />
                 </div>
                 <div>
@@ -33,7 +111,9 @@ const FormDaftar = () => {
                         type="email"
                         placeholder="anggara@gmail.com"
                         required={true}
+                        onChange={e => setEmail(e.target.value)}
                     />
+                    {emailNotFound && <span className="text-red-700">email tidak terdaftar</span>}
                 </div>
                 <div>
                     <div className="mb-2 block">
@@ -47,6 +127,8 @@ const FormDaftar = () => {
                         type="number"
                         placeholder="087656787654"
                         required={true}
+                        onChange={e => setTelepon(e.target.value)}
+                        disabled={emailNotFound}
                     />
                 </div>
                 <div id="select">
@@ -59,6 +141,8 @@ const FormDaftar = () => {
                     <Select
                         id="semester"
                         required={true}
+                        onChange={e => setSemester(e.target.value)}
+                        disabled={emailNotFound}
                     >
                         <option>
                             1
@@ -98,22 +182,26 @@ const FormDaftar = () => {
                         id="ipk"
                         type="number"
                         placeholder="087656787654"
-                        value={3}
+                        value={ipk}
                         readOnly={true}
                         required={true}
+                        disabled={emailNotFound}
                     />
+                    {!isEligible && <span className="text-red-700">ipk minimal 3</span>}
                 </div>
 
                 <div id="select">
                     <div className="mb-2 block">
                         <Label
-                            htmlFor="semester"
+                            htmlFor="beasiswa"
                             value="Pilihan Beasiswa"
                         />
                     </div>
                     <Select
-                        id="semester"
+                        id="beasiswa"
                         required={true}
+                        onChange={e => setBeasiswa(e.target.value)}
+                        disabled={emailNotFound || !isEligible}
                     >
                         <option>
                             Beasiswa Akademik
@@ -134,12 +222,14 @@ const FormDaftar = () => {
                     </div>
                     <FileInput
                         id="file"
-                        helperText="Hanya format JPG atau PNG yang diperbolehkan"
+                        helperText="Hanya format PNG yang diperbolehkan"
+                        onChange={e => handleChangeBerkas(e)}
+                        disabled={emailNotFound || !isEligible}
                     />
                 </div>
 
 
-                <Button type="submit">
+                <Button type="submit" disabled={emailNotFound || !isEligible}>
                     Daftar
                 </Button>
             </form>
