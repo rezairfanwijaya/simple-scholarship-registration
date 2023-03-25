@@ -2,7 +2,6 @@ package handler
 
 import (
 	"fmt"
-	"log"
 	"net/http"
 	"serkom/helper"
 	"serkom/mahasiswa"
@@ -94,7 +93,7 @@ func (h *handlerMahasiswa) DaftarBeasiswa(c *gin.Context) {
 	}
 
 	// generate url image for client
-	berkasURL := fmt.Sprintf("http://localhost:6776/image/%v", fileName)
+	berkasURL := fmt.Sprintf("http://localhost:8989/image/%v", fileName)
 
 	// set input for service
 	semesterInNumber, _ := strconv.Atoi(semester)
@@ -109,5 +108,44 @@ func (h *handlerMahasiswa) DaftarBeasiswa(c *gin.Context) {
 		JenisBeassiwa: beasiswa,
 	}
 
-	log.Println(input)
+	// call service
+	code, err = h.mahasiswaService.RegisterBeasiswa(input)
+	if err != nil {
+		response := helper.GenerateResponse(
+			"failed",
+			http.StatusBadRequest,
+			err.Error(),
+		)
+		c.JSON(http.StatusBadRequest, response)
+		return
+	}
+
+	response := helper.GenerateResponse(
+		"sukses",
+		code,
+		"sukses daftar beasiswa",
+	)
+
+	c.JSON(code, response)
+}
+
+func (h *handlerMahasiswa) GetAllApprovals(c *gin.Context) {
+	result, code, err := h.mahasiswaService.GetAllRegisteredBeasiswa()
+	if err != nil {
+		response := helper.GenerateResponse(
+			"failed",
+			code,
+			err.Error(),
+		)
+		c.JSON(code, response)
+		return
+	}
+
+	response := helper.GenerateResponse(
+		"sukses",
+		code,
+		result,
+	)
+
+	c.JSON(code, response)
 }
