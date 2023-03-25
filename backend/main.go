@@ -52,6 +52,7 @@ func main() {
 	router.GET("/mahasiswa/approval", hanlderMahasiswa.GetAllApprovals)
 	router.POST("/admin/login", handlerAdmin.Login)
 	router.GET("/admin/status/show", handlerAdmin.GetTotalStatus)
+	router.PUT("/admin/status/:id", handlerAdmin.ChangeStatusApporval)
 	router.Static("/image", "./images")
 
 	env, err := helper.GetENV(".env")
