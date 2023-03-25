@@ -8,6 +8,7 @@ import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 
 const Hasil = () => {
+    // state
     const [approvals, setapprovals] = useState([])
     const MySwal = withReactContent(Swal)
 
@@ -36,7 +37,7 @@ const Hasil = () => {
         if (approval.status === 0) {
             return <div className="p-2 bg-secondary rounded-full text-center text-sm">Belum di verifikasi</div>
         } else {
-            return <div className="p-2 bg-primary text-white rounded-full text-center">Approved</div>
+            return <div className="p-2 bg-primary text-white rounded-full text-center text-sm">Approved</div>
         }
 
     };
@@ -58,7 +59,7 @@ const Hasil = () => {
                     <Column field="telepon" sortable header="Telepon"></Column>
                     <Column field="jenis_beasiswa" sortable header="Beasiswa"></Column>
                     <Column header="Berkas" body={imageBodyTemplate}></Column>
-                    <Column header="Status" body={statusBodyTemplate}></Column>
+                    <Column header="Status" body={statusBodyTemplate} style={{ minWidth: '8rem' }}></Column>
                 </DataTable>
             </div>
 
