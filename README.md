@@ -1,0 +1,60 @@
+# Simple Scholarship App
+
+Repo ini memuat code dari wesbite pendaftaran beasiswa sederhana. Untuk dapat menjalankan program ini dapat mengikuti intruksi berikut
+## Run Locally For Setup Server
+
+
+#### Clone the project
+
+```bash
+  git clone https://github.com/rezairfanwijaya/simple-scholarship-registration.git
+```
+
+#### Go to the project directory
+
+```bash
+  cd simple-scholarship-registration/backend
+```
+
+
+#### Setup ENV
+##### Rename .env.example file menjadi .env dan sesuaikan dengan database yang dipilih
+##### contoh :
+```bash
+DATABASE_USERNAME = "root"
+DATABASE_PASSWORD = ""
+DATABASE_HOST = "127.0.0.1"
+DATABASE_PORT = "3306"
+DATABASE_NAME = "serkom"
+DOMAIN = ":8989"
+SECRET_KEY = "3465837DVBJHFB3764SHNBVN_89"
+```
+
+#### Run application
+##### Terdapat excecutable file bernama `main.exe` dan jalankan file tersebut sehingga terbuka terminal. Jangan menutup terminal selama program akan dijalankan.
+
+
+
+## Data Admin 
+##### Untuk masuk kedalam dashboard silahkan masukan credentials berikut
+```bash
+username : "admin@gmail.com"
+password : "12345"
+``` 
+
+## Run Locally For Setup Client
+#### Go to the project directory
+
+```bash
+  cd simple-scholarship-registration/frontend
+```
+
+#### Get Dependency
+```bash
+  npm install
+```
+
+#### Serve Application
+```bash
+  npm start
+```
