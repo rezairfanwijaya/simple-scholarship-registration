@@ -29,6 +29,7 @@ func main() {
 
 	// endpoint
 	router.GET("/mahasiswa/:email", hanlderMahasiswa.GetByEmail)
+	router.POST("/mahasiswa/daftar", hanlderMahasiswa.DaftarBeasiswa)
 
 	env, err := helper.GetENV(".env")
 	if err != nil {
