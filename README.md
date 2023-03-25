@@ -31,7 +31,7 @@ SECRET_KEY = "3465837DVBJHFB3764SHNBVN_89"
 ```
 
 #### Run application
-##### Terdapat excecutable file bernama `main.exe` dan jalankan file tersebut sehingga terbuka terminal. Jangan menutup terminal selama program akan dijalankan.
+##### Terdapat executable file bernama `main.exe` dan jalankan file tersebut sehingga terbuka terminal. Jangan menutup terminal selama program akan dijalankan.
 
 
 ![tutor1](https://user-images.githubusercontent.com/87264553/227724073-3f2d6a94-5de9-4461-9f65-4d49ef1dc099.png)
