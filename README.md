@@ -45,6 +45,15 @@ SECRET_KEY = "3465837DVBJHFB3764SHNBVN_89"
 username : "admin@gmail.com"
 password : "12345"
 ``` 
+## Data Email 
+##### Terdapat beberapa email yang dapat digunakan untuk melakukan registrasi beasiswa yaitu
+```bash
+agung@gmail.com
+angelica@gmail.com
+babas@gmail.com
+rustam@gmail.com
+mawar@gmail.com
+``` 
 
 ## Run Locally For Setup Client
 #### Go to the project directory
