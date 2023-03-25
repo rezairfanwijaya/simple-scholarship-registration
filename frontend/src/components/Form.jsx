@@ -96,7 +96,6 @@ const FormDaftar = () => {
     }
 
     return (<>
-
         <div className="body flex flex-col gap-4 bg-white p-5 rounded-md">
             <form className="flex flex-col gap-4 bg-white rounded-md" onSubmit={handleDaftarBeasiswa}>
                 <div>

@@ -5,6 +5,7 @@ import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 
 const FormLogin = () => {
+    // state
     const [email, setemail] = useState('')
     const [password, setpassword] = useState('')
     const MySwal = withReactContent(Swal)
@@ -21,7 +22,6 @@ const FormLogin = () => {
             })
                 .then(res => { return res.json() })
                 .then(data => {
-                    console.log(data)
                     if (data.meta.code === 404) {
                         MySwal.fire({
                             icon: 'error',

@@ -1,5 +1,6 @@
 const Card = (props) => {
     return (<>
+        {/* card */}
         <div className="card bg-white p-4 rounded-md flex flex-col gap-5 md:w-1/2 md:justify-end lg:justify-between hover:shadow-md">
             <div className="header flex justify-center">
                 <img
@@ -19,6 +20,7 @@ const Card = (props) => {
         </div>
 
 
+        {/* modal detil */}
         <div id={props.idModal} tabindex="-1" aria-hidden="true" className="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] md:h-full">
             <div className="relative w-full h-full max-w-2xl md:h-auto">
 
@@ -34,7 +36,7 @@ const Card = (props) => {
                         </button>
                     </div>
 
-                   {props.detail}
+                    {props.detail}
 
                     <div className="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600 justify-end">
                         <button data-modal-hide={props.idModal} type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">tutup</button>

@@ -9,6 +9,8 @@ import {
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 import React, { useState, useEffect } from 'react';
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
 ChartJS.register(
     CategoryScale,
@@ -39,14 +41,15 @@ const labels = [
 ];
 
 const BarChart = () => {
+    // state
     const [approve, setapprove] = useState(0)
     const [pending, setpending] = useState(0)
+    const MySwal = withReactContent(Swal)
     useEffect(() => {
         fetch(`http://localhost:8989/admin/status/show`, {
             method: 'GET'
         }).then(res => { return res.json() })
             .then(data => {
-                console.log(data)
                 if (data.meta.code === 200) {
                     setapprove(data.data.approve)
                     setpending(data.data.pending)
@@ -60,7 +63,7 @@ const BarChart = () => {
             })
     }, []) 
 
-
+    // data pada table
     const data = {
         labels,
         datasets: [

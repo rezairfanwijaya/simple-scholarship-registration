@@ -25,7 +25,6 @@ const SideBar = () => {
         })
     }
 
-
     return (<>
         {/* small screen */}
         <div
