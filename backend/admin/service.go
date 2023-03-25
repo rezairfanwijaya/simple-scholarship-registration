@@ -10,6 +10,7 @@ type IService interface {
 	Login(input InputLoginAdmin) (Admin, error)
 	GetUserByID(userID int) (Admin, error)
 	GetTotalStatus() (totalPending int64, totalApprove int64)
+	ChangeStatus(ID int, status int) (approval.Approval, int, error)
 }
 
 type Service struct {
@@ -62,4 +63,13 @@ func (s *Service) GetUserByID(userID int) (Admin, error) {
 func (s *Service) GetTotalStatus() (totalPending int64, totalApprove int64) {
 	totalPending, totalApprove = s.serviceApproval.GetTotalStatus()
 	return totalPending, totalApprove
+}
+
+func (s *Service) ChangeStatus(ID int, status int) (approval.Approval, int, error) {
+	approvalUpdated, code, err := s.serviceApproval.ChangeStatus(ID, status)
+	if err != nil {
+		return approvalUpdated, code, err
+	}
+
+	return approvalUpdated, code, err
 }
