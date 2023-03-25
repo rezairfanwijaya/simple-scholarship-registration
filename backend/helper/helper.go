@@ -8,6 +8,26 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
+type responseAPI struct {
+	Meta meta        `json:"meta"`
+	Data interface{} `json:"data"`
+}
+
+type meta struct {
+	Status string `json:"status"`
+	Code   int    `json:"code"`
+}
+
+func GenerateResponse(status string, code int, data interface{}) *responseAPI {
+	return &responseAPI{
+		Meta: meta{
+			Status: status,
+			Code:   code,
+		},
+		Data: data,
+	}
+}
+
 func GetENV(path string) (env map[string]string, err error) {
 	env, err = godotenv.Read(path)
 	if err != nil {
