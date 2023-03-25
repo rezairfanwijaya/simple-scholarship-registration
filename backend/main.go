@@ -55,13 +55,9 @@ func main() {
 	router.PUT("/admin/status/:id", handlerAdmin.ChangeStatusApporval)
 	router.Static("/image", "./images")
 
-	env, err := helper.GetENV(".env")
-	if err != nil {
-		log.Fatal(err.Error())
-	}
 
 	// start server
-	if err := router.Run(env["DOMAIN"]); err != nil {
+	if err := router.Run(":8989"); err != nil {
 		log.Fatal(err.Error())
 	}
 }
