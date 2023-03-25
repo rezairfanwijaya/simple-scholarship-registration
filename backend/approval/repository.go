@@ -1,11 +1,15 @@
 package approval
 
-import "gorm.io/gorm"
+import (
+	"gorm.io/gorm"
+)
 
 type IRespoistory interface {
 	Save(approval Approval) (Approval, error)
+	FindByID(ID int) (Approval, error)
 	FindAll() ([]Approval, error)
 	CountStatus(pending, approve int) (totalPending int64, totalApprove int64)
+	Update(approval Approval) (Approval, error)
 }
 
 type repository struct {
@@ -18,6 +22,15 @@ func NewRepository(db *gorm.DB) *repository {
 
 func (r *repository) Save(approval Approval) (Approval, error) {
 	if err := r.db.Create(&approval).Error; err != nil {
+		return approval, err
+	}
+
+	return approval, nil
+}
+
+func (r *repository) FindByID(ID int) (Approval, error) {
+	var approval Approval
+	if err := r.db.Where("id = ?", ID).Find(&approval).Error; err != nil {
 		return approval, err
 	}
 
@@ -38,4 +51,12 @@ func (r *repository) CountStatus(pending, approve int) (totalPending int64, tota
 	r.db.Model(&Approval{}).Where("status = ? ", approve).Count(&totalApprove)
 
 	return totalPending, totalApprove
+}
+
+func (r *repository) Update(approval Approval) (Approval, error) {
+	if err := r.db.Save(&approval).Error; err != nil {
+		return approval, err
+	}
+
+	return approval, nil
 }
