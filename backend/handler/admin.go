@@ -5,6 +5,7 @@ import (
 	"serkom/admin"
 	"serkom/auth"
 	"serkom/helper"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -82,4 +83,55 @@ func (h *HandlerAdmin) GetTotalStatus(c *gin.Context) {
 	)
 
 	c.JSON(http.StatusOK, response)
+}
+
+func (h *HandlerAdmin) ChangeStatusApporval(c *gin.Context) {
+	// get id from param
+	IDString := c.Param("id")
+	IDNumber, err := strconv.Atoi(IDString)
+	if err != nil || IDNumber == 0 {
+		response := helper.GenerateResponse(
+			"gagal",
+			http.StatusBadRequest,
+			"ID harus integer dan lebih besar dari 0",
+		)
+
+		c.JSON(http.StatusBadRequest, response)
+		return
+	}
+
+	// binding
+	var input admin.InputChangeStatusApproval
+	if err := c.BindJSON(&input); err != nil {
+		errBinding := helper.GenerateErrorBinding(err)
+		response := helper.GenerateResponse(
+			"gagal",
+			http.StatusBadRequest,
+			errBinding,
+		)
+
+		c.JSON(http.StatusBadRequest, response)
+		return
+	}
+
+	// call service
+	_, code, err := h.adminService.ChangeStatus(IDNumber, input.Status)
+	if err != nil {
+		response := helper.GenerateResponse(
+			"gagal",
+			code,
+			err.Error(),
+		)
+
+		c.JSON(code, response)
+		return
+	}
+
+	response := helper.GenerateResponse(
+		"sukses",
+		code,
+		"sukses update status",
+	)
+
+	c.JSON(code, response)
 }
