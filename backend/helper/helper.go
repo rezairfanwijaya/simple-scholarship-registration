@@ -2,6 +2,8 @@ package helper
 
 import (
 	"fmt"
+	"net/http"
+	"strings"
 
 	"github.com/go-playground/validator/v10"
 	"github.com/joho/godotenv"
@@ -68,4 +70,23 @@ func VerifyLengthPhoneNumber(phoneNumber string) error {
 	}
 
 	return nil
+}
+
+func ServeBerkas(fileName string) (path string, name string, code int, err error) {
+	// remove space from filename
+	fileNameSplit := strings.Split(fileName, " ")
+	mergeName := ""
+	for _, v := range fileNameSplit {
+		mergeName += v
+	}
+
+	// filter file extensions
+	mergeNameSplit := strings.Split(mergeName, ".")
+	fileExtenstion := mergeNameSplit[len(mergeNameSplit)-1]
+	if fileExtenstion != "png" {
+		return "", "", http.StatusBadRequest, fmt.Errorf("extensi yang diperbolehkan hanya png")
+	}
+	// set dir to save image in local
+	path = "images/" + mergeName
+	return path, mergeName, http.StatusOK, nil
 }
